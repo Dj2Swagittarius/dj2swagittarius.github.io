@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dj2Swagittarius</title>
+  <meta name="description" content="Links for Spotless, the self-hosted music streamer by lateshift.tech.">
+  <meta name="theme-color" content="#0c110d">
+  <meta property="og:title" content="Dj2Swagittarius">
+  <meta property="og:description" content="Spotless: a self-hosted music streamer with a Spotify-style interface.">
+  <meta property="og:image" content="https://dj2swagittarius.github.io/icon-512.png">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <style>
+    :root {
+      --bg: #0c110d;
+      --card: #161c17;
+      --card-hover: #1f2820;
+      --border: #263027;
+      --text: #f2f5f2;
+      --muted: #9aa69b;
+      --accent: #1ed760;
+      --accent-bright: #3be477;
+      --ink: #06140a;
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100vh;
+      background:
+        radial-gradient(60rem 30rem at 50% -10rem, rgba(30, 215, 96, 0.14), transparent 70%),
+        var(--bg);
+      color: var(--text);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      display: flex;
+      justify-content: center;
+      padding: 56px 16px 40px;
+    }
+    main { width: 100%; max-width: 440px; text-align: center; }
+    .avatar { width: 96px; height: 96px; border-radius: 24px; display: block; margin: 0 auto 20px; }
+    h1 { font-size: 1.6rem; margin: 0 0 6px; letter-spacing: -0.01em; }
+    .tagline { color: var(--muted); margin: 0 0 32px; line-height: 1.5; }
+    .tagline strong { color: var(--text); font-weight: 600; }
+    ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+    a.link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 18px;
+      border-radius: 14px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      text-align: left;
+      transition: background 0.15s, transform 0.15s, border-color 0.15s;
+    }
+    a.link:hover { background: var(--card-hover); border-color: #34413a; transform: translateY(-1px); }
+    a.link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+    a.link svg { width: 22px; height: 22px; flex: none; }
+    a.link span { flex: 1; }
+    a.link small { display: block; font-weight: 400; color: var(--muted); font-size: 0.85rem; margin-top: 2px; }
+    a.primary { background: var(--accent); border-color: var(--accent); color: var(--ink); }
+    a.primary small { color: rgba(6, 20, 10, 0.72); }
+    a.primary:hover { background: var(--accent-bright); border-color: var(--accent-bright); }
+    footer { margin-top: 40px; color: var(--muted); font-size: 0.8rem; }
+    @media (prefers-reduced-motion: reduce) { a.link { transition: none; } a.link:hover { transform: none; } }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="avatar" src="icon.svg" alt="Spotless logo" width="96" height="96">
+    <h1>Dj2Swagittarius</h1>
+    <p class="tagline">Building <strong>Spotless</strong>, a self-hosted music streamer<br>with a Spotify-style interface.</p>
+
+    <ul>
+      <li>
+        <a class="link primary" href="https://github.com/sponsors/Dj2Swagittarius">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 5.3 3.1 1.7-1.9 3.2-3.1 5.3-3.1 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg>
+          <span>Sponsor on GitHub<small>One-time or monthly</small></span>
+        </a>
+      </li>
+      <li>
+        <a class="link" href="https://ko-fi.com/dj2swagittarius">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 8h13v5a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V8z"/><path d="M17 9h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 2.5v2.5M11.5 2.5v2.5"/></svg>
+          <span>Tip on Ko-fi<small>Buy me a coffee</small></span>
+        </a>
+      </li>
+      <li>
+        <a class="link" href="https://github.com/Dj2Swagittarius/spotless/releases/latest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M4 20h16"/></svg>
+          <span>Download Spotless<small>Windows, Mac and Linux desktop apps</small></span>
+        </a>
+      </li>
+      <li>
+        <a class="link" href="https://github.com/Dj2Swagittarius/spotless">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.6 22.4c.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0c2.2-1.5 3.2-1.2 3.2-1.2.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.5 11.5 0 0 0 12 .5z"/></svg>
+          <span>Spotless on GitHub<small>Source code, issues and docs</small></span>
+        </a>
+      </li>
+    </ul>
+
+    <footer>Spotless is developed by lateshift.tech</footer>
+  </main>
+</body>
+</html>
