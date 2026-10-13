@@ -51,7 +51,12 @@
     .tabs button:focus-visible { outline: 2px solid var(--blaze); outline-offset: 3px; }
     .panel { background: #fff; border-radius: 16px; overflow: hidden; }
     .panel[hidden] { display: none; }
-    .panel iframe { display: block; width: 100%; min-height: 1400px; border: 0; }
+    /* Fallback heights (form content measured at 343px and 720px wide, plus margin). Jotform's
+       embed handler overrides them with an inline height when the form reports one. */
+    .panel iframe { display: block; width: 100%; border: 0; }
+    #panel-signup iframe { height: 3000px; }
+    #panel-feedback iframe { height: 4600px; }
+    .newtab { display: block; margin: 10px 0 0; text-align: center; color: var(--muted); font-size: 0.85rem; }
     footer { margin-top: 32px; text-align: center; color: var(--muted); font-size: 0.8rem; }
     footer a { color: var(--muted); }
     @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } h1 { font-size: 1.6rem; } }
@@ -76,11 +81,12 @@
     </div>
 
     <section class="panel" id="panel-signup" role="tabpanel" aria-labelledby="tab-signup">
-      <iframe id="JotFormIFrame-262850887958075" src="https://form.jotform.com/262850887958075" title="Marblaze Playtester Sign-Up" allow="fullscreen" loading="lazy"></iframe>
+      <iframe id="JotFormIFrame-262850887958075" data-src="https://form.jotform.com/262850887958075" title="Marblaze Playtester Sign-Up" allow="fullscreen"></iframe>
     </section>
     <section class="panel" id="panel-feedback" role="tabpanel" aria-labelledby="tab-feedback" hidden>
-      <iframe id="JotFormIFrame-262850672268061" src="https://form.jotform.com/262850672268061" title="Marblaze Playtest Feedback" allow="fullscreen" loading="lazy"></iframe>
+      <iframe id="JotFormIFrame-262850672268061" data-src="https://form.jotform.com/262850672268061" title="Marblaze Playtest Feedback" allow="fullscreen"></iframe>
     </section>
+    <a class="newtab" id="newtab" href="https://form.jotform.com/262850887958075" target="_blank" rel="noopener">Form not loading? Open it in a new tab</a>
 
     <footer>Marblaze is made by <a href="https://lateshift.tech">lateshift.tech</a> &middot; <a href="../">More projects</a></footer>
   </main>
@@ -88,21 +94,30 @@
   <script src="https://cdn.jotfor.ms/s/umd/latest/for-form-embed-handler.js"></script>
   <script>
     const tabs = [...document.querySelectorAll('[role="tab"]')];
+    const newtab = document.getElementById('newtab');
+    // Each form loads the first time its tab is shown, so Jotform measures it at the real width
+    // (a form measured inside a hidden panel reports a height that is too short).
+    function load(panel) {
+      const f = panel.querySelector('iframe');
+      if (f.src) return;
+      f.src = f.dataset.src;
+      if (window.jotformEmbedHandler) window.jotformEmbedHandler("iframe[id='" + f.id + "']", "https://form.jotform.com/");
+    }
     function show(id, push) {
       for (const t of tabs) {
         const on = t.getAttribute('aria-controls') === id;
         t.setAttribute('aria-selected', on);
         document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
       }
+      const panel = document.getElementById(id);
+      load(panel);
+      newtab.href = panel.querySelector('iframe').dataset.src;
       if (push) history.replaceState(null, '', '#' + id.replace('panel-', ''));
     }
     tabs.forEach(t => t.addEventListener('click', () => show(t.getAttribute('aria-controls'), true)));
-    if (location.hash === '#feedback') show('panel-feedback', false);
-    // Auto-resize the Jotform iframes to their content height.
-    if (window.jotformEmbedHandler) {
-      window.jotformEmbedHandler("iframe[id='JotFormIFrame-262850887958075']", "https://form.jotform.com/");
-      window.jotformEmbedHandler("iframe[id='JotFormIFrame-262850672268061']", "https://form.jotform.com/");
-    }
+    const fromHash = () => show(location.hash === '#feedback' ? 'panel-feedback' : 'panel-signup', false);
+    window.addEventListener('hashchange', fromHash);
+    fromHash();
   </script>
 </body>
 </html>
