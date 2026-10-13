@@ -4,10 +4,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Marblaze Playtest</title>
-  <meta name="description" content="Sign up to playtest Marblaze, a 3D marble runner for Android, or send feedback after a session.">
+  <meta name="description" content="Apply for the paid Android playtest of Marblaze, a 3D marble runner, or play the free web version and send feedback.">
   <meta name="theme-color" content="#0b0a1c">
   <meta property="og:title" content="Playtest Marblaze">
-  <meta property="og:description" content="Looking for playtesters who give honest, specific feedback on a 3D marble runner for Android.">
+  <meta property="og:description" content="Looking for playtesters who give honest, specific feedback on a 3D marble runner. Paid Android playtest, free web playtest.">
   <link rel="icon" href="../icon.svg" type="image/svg+xml">
   <style>
     :root {
@@ -36,9 +36,16 @@
     h1 { font-size: 1.9rem; margin: 0 0 8px; letter-spacing: -0.01em; }
     h1 span { color: var(--blaze); }
     .lead { color: var(--muted); margin: 0 auto; max-width: 520px; line-height: 1.55; }
-    .steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 24px 0; padding: 0; list-style: none; }
-    .steps li { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 12px; font-size: 0.9rem; color: var(--muted); line-height: 1.4; }
-    .steps b { display: block; color: var(--text); margin-bottom: 2px; }
+    .tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 24px 0 8px; text-align: left; }
+    .track { display: flex; flex-direction: column; background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 16px; }
+    .track h2 { font-size: 1.1rem; margin: 0 0 4px; }
+    .track .pay { color: var(--blaze); font-weight: 600; margin: 0 0 10px; font-size: 0.95rem; }
+    .track ol { margin: 0 0 14px; padding-left: 1.2em; color: var(--muted); font-size: 0.9rem; line-height: 1.45; flex: 1; }
+    .track li + li { margin-top: 4px; }
+    .cta { display: block; text-align: center; padding: 11px 14px; border-radius: 10px; font: inherit; font-weight: 600; cursor: pointer;
+      text-decoration: none; border: 1px solid var(--blaze); background: linear-gradient(var(--blaze), var(--blaze-2)); color: var(--ink); }
+    .cta.ghost { background: none; color: var(--blaze); }
+    .cta:focus-visible { outline: 2px solid var(--blaze); outline-offset: 3px; }
     .tabs { display: flex; gap: 8px; margin-bottom: 12px; }
     .tabs button {
       flex: 1; padding: 12px 14px; border-radius: 12px; cursor: pointer;
@@ -57,23 +64,39 @@
     .newtab { display: block; margin: 10px 0 0; text-align: center; color: var(--muted); font-size: 0.85rem; }
     footer { margin-top: 32px; text-align: center; color: var(--muted); font-size: 0.8rem; }
     footer a { color: var(--muted); }
-    @media (max-width: 560px) { .steps { grid-template-columns: 1fr; } h1 { font-size: 1.6rem; } }
+    @media (max-width: 560px) { .tracks { grid-template-columns: 1fr; } h1 { font-size: 1.6rem; } }
   </style>
 </head>
 <body>
   <main>
     <header>
       <h1>Playtest <span>Marblaze</span></h1>
-      <p class="lead">Marblaze is a 3D endless marble runner with a Marble Brawl mode, for Android. I'm looking for Android testers who will play a few sessions and tell me what works and what doesn't.</p>
-      <ul class="steps">
-        <li><b>1. Sign up</b>Tell me how you play and what you can test on.</li>
-        <li><b>2. Play</b>I'll send you the Android build and a short list of things to try.</li>
-        <li><b>3. Report</b>Send feedback with the form on this page.</li>
-      </ul>
+      <p class="lead">Marblaze is a 3D endless marble runner with a Marble Brawl mode. There are two ways to help test it.</p>
+      <div class="tracks">
+        <section class="track">
+          <h2>Paid Android playtest</h2>
+          <p class="pay">$20 per hour of play, paid through PayPal. 5 spots.</p>
+          <ol>
+            <li>Apply with the form below.</li>
+            <li>If you're picked, I'll send you the Android build and a short list of things to try.</li>
+            <li>Play 3 sessions, then send one feedback form at the end.</li>
+          </ol>
+          <button type="button" class="cta" data-go="panel-signup">Apply for the paid playtest</button>
+        </section>
+        <section class="track">
+          <h2>Free web playtest</h2>
+          <p class="pay">Open to anyone. No sign-up.</p>
+          <ol>
+            <li>Play in your browser, on phone or desktop.</li>
+            <li>Send feedback here, or with "Send feedback" in the game's pause menu.</li>
+          </ol>
+          <a class="cta ghost" href="https://marblaze.lateshift.tech">Play the web version &rarr;</a>
+        </section>
+      </div>
     </header>
 
     <div class="tabs" role="tablist">
-      <button role="tab" id="tab-signup" aria-controls="panel-signup" aria-selected="true">Sign up to playtest</button>
+      <button role="tab" id="tab-signup" aria-controls="panel-signup" aria-selected="true">Apply (paid Android)</button>
       <button role="tab" id="tab-feedback" aria-controls="panel-feedback" aria-selected="false">Send feedback</button>
     </div>
 
@@ -112,6 +135,10 @@
       if (push) history.replaceState(null, '', '#' + id.replace('panel-', ''));
     }
     tabs.forEach(t => t.addEventListener('click', () => show(t.getAttribute('aria-controls'), true)));
+    document.querySelectorAll('[data-go]').forEach(b => b.addEventListener('click', () => {
+      show(b.dataset.go, true);
+      document.querySelector('.tabs').scrollIntoView({ behavior: 'smooth' });
+    }));
     const fromHash = () => show(location.hash === '#feedback' ? 'panel-feedback' : 'panel-signup', false);
     window.addEventListener('hashchange', fromHash);
     fromHash();
